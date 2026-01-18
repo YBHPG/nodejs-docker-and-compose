@@ -26,18 +26,16 @@ services:
     networks:
       - external_network
 
-db:
+  db:
     container_name: postgres
     image: postgres:16-alpine
     env_file: .env
     environment:  # Переменные PG явно
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USERNAME} 
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data  # Правильный путь
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER} 
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -45,7 +43,6 @@ db:
       - postgres_data:${PGDATA}
     networks:
       - internal_network
-
 
   adminer:
     container_name: adminer
