@@ -8,6 +8,9 @@ services:
     ports:
       - 3005:3005
     env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy  # Ждёт готовности БД
     networks:
       - internal_network
 
@@ -23,14 +26,26 @@ services:
     networks:
       - external_network
 
-  db:
+db:
     container_name: postgres
     image: postgres:16-alpine
     env_file: .env
+    environment:  # Переменные PG явно
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME} 
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Правильный путь
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     volumes:
       - postgres_data:${PGDATA}
     networks:
       - internal_network
+
 
   adminer:
     container_name: adminer
