@@ -1,4 +1,4 @@
-export const URL = "api.m2411304.nomorepartiessbs.ru";
+export const URL = "https://api.m2411304.nomorepartiessbs.ru";
 
 export const MINIMUM_PASSWORD_LENGTH = 3;
 export const MINIMUM_USERNAME_LENGTH = 3;
