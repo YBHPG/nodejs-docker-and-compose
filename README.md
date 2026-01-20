@@ -4,6 +4,6 @@
 
 IP: 158.160.169.159
 
-Frontend: https://m2411304.students.nomorepartiessbs.ru
+Frontend: https://m2411304.nomorepartiessbs.ru
 
-Backend: https://api.m2411304.students.nomorepartiessbs.ru
+Backend: https://api.m2411304.nomorepartiessbs.ru
